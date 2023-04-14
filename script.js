@@ -12,7 +12,7 @@ const image = document.getElementById('image');
 const publicVapidKey = 'BOYe4oxkSDVXnmoIsUcLGqZf-oSJsAglHs2E6Lmjy0uQ7PWqtt-yGR3059OdvabiCHzI4VDP4gjLVi8hWSxv2IA';
 
 // Send push notification
-navigator.serviceWorker.register('sw.js', { scope: '/' })
+navigator.serviceWorker.register('sw.js'})
   .then(async registration => {
     // Ativa notificações
     btn.addEventListener('click', () => {
