@@ -8,11 +8,8 @@ const message = document.getElementById('message');
 const icon = document.getElementById('icon');
 const image = document.getElementById('image');
 
-// VapidKey
-const publicVapidKey = 'BOYe4oxkSDVXnmoIsUcLGqZf-oSJsAglHs2E6Lmjy0uQ7PWqtt-yGR3059OdvabiCHzI4VDP4gjLVi8hWSxv2IA';
-
 // Send push notification
-navigator.serviceWorker.register('sw.js'})
+navigator.serviceWorker.register('sw.js')
   .then(async registration => {
     // Ativa notificações
     btn.addEventListener('click', () => {
@@ -60,31 +57,4 @@ navigator.serviceWorker.register('sw.js'})
         ],
       });
     });
-
-    // Registra o service worker
-    const subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
-    });
-
-    await fetch('/subscribe', {
-      method: 'POST',
-      body: JSON.stringify(subscription),
-      headers: {
-        'content-type': 'application/json',
-      },
-    });
   });
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/');
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}

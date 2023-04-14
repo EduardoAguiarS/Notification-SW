@@ -1,16 +1,10 @@
 console.log('Service Worker Loaded...');
 
 self.addEventListener('push', event => {
-  const data = event.data.json();
-  
-  self.registration.showNotification(data.title, {
-    body: data.message,
-    icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbadPFChluFcVIQHBxH4uOS-oIlFBxBZ9dJ0B8i0zHvwXJ60HrcHROqpmVmAD1RNtefuQ&usqp=CAU'
-    actions: [
-      { action: 'yes', title: 'Yes' },
-      { action: 'no', title: 'No' },
-    ],
-  });
-
-  console.log(data);
+  const body = event.data?.text() ?? 'Push Notification';
+  event.waitUntil(
+    self.registration.showNotification('Push Notification', {
+      body,
+    })
+  );
 });
